@@ -19,6 +19,11 @@ namespace WebApiRestE2
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+            name: "obtenerUsuario",
+            routeTemplate: "api/{controller}/{action}/{email}/{contrasena}",
+            defaults: null
+            );
         }
     }
 }

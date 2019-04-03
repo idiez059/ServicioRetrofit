@@ -24,20 +24,34 @@ namespace WebApiRestE2.Controllers
         }
 
         // GET: api/usuarios/5
-        [ResponseType(typeof(usuario))]
-        public async Task<IHttpActionResult> Getusuario(string email)
+        //[ResponseType(typeof(usuario))]
+        //public async Task<IHttpActionResult> Getusuario(string id)
+        //{
+
+        //    usuario usuario = await db.usuario.FindAsync(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(usuario);
+        //}
+
+        // GET: api/usuarios/obtenerUsuario/email/password/
+        [HttpGet]
+        [Route("api/usuarios/obtenerUsuario/{email}/{contrasena}")]
+        public IHttpActionResult GetobtenerUsuario(string email, string contrasena)
         {
-            usuario usuario = db.usuario.Where(x => x.email == email).FirstOrDefault();
-            return Ok(usuario);
-            //usuario usuario = await db.usuario.FindAsync(id);
-            //if (usuario == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return Ok(usuario);
+            usuario usuario = db.usuario.Where(x => x.email == email && x.password == contrasena).FirstOrDefault();
+            if (usuario == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                return Ok(usuario);
+            }
         }
-
         // PUT: api/usuarios/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putusuario(string id, usuario usuario)
